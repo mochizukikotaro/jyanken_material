@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import PropTypes from 'prop-types'
+import { BrowserRouter, Route, Redirect, Link } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import FlatButton from 'material-ui/RaisedButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import Paper from 'material-ui/Paper'
-import { Tabs, Tab } from 'material-ui/Tabs'
 import { Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn } from 'material-ui/Table'
 import Jyanken from './Jyanken'
 
@@ -37,20 +38,21 @@ class JyankenGamePage extends Component {
           <Header>じゃんけんぽん！</Header>
           <JyankenBox actionPon={(te) => this.pon(te)} />
           <Paper style={{width: 400}} zDepth={2}>
-            <Tabs value={this.state.tabIndex} onChange={(ix) => this.tabChange(ix)}>
-              <Tab label="対戦結果" value={0}>
-                <ScoreList scores={this.state.scores} />
-              </Tab>
-              <Tab label="対戦成績" value={1}>
-                <StatusBox status={this.state.status} />
-              </Tab>
-            </Tabs>
+            <Link to="/scores"><FlatButton label="対戦結果" /></Link>
+            <Link to="/status"><FlatButton label="対戦結果" /></Link>
+            <Route path="/scores" component={() => <ScoreList scores={this.state.scores} />} />
+            <Route path="/status" component={() => <StatusBox status={this.state.status} />} />
+            <Route exact path="/" component={() => <Redirect to="/scores" />} />
           </Paper>
         </div>
       </MuiThemeProvider>
     )
   }
 }
+JyankenGamePage.propTypes = {
+  location: PropTypes.object
+}
+
 const Header = (props) => (<h1>{props.children}</h1>)
 Header.propTypes = {
   children: PropTypes.string
@@ -141,6 +143,8 @@ const judgementStyel = (judgement) => (
 )
 
 ReactDOM.render(
-  <JyankenGamePage />,
+  <BrowserRouter>
+    <Route path="/" component={JyankenGamePage} />
+  </BrowserRouter>,
   document.getElementById('root')
 )
