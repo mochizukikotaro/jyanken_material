@@ -38,8 +38,8 @@ class JyankenGamePage extends Component {
           <Header>じゃんけんぽん！</Header>
           <JyankenBox actionPon={(te) => this.pon(te)} />
           <Paper style={{width: 400}} zDepth={2}>
-            <Link to="/scores"><FlatButton label="対戦結果" /></Link>
-            <Link to="/status"><FlatButton label="対戦結果" /></Link>
+            <Link id="tab-scores" to="/scores"><FlatButton label="対戦結果" /></Link>
+            <Link id="tab-status" to="/status"><FlatButton label="対戦結果" /></Link>
             <Route path="/scores" component={() => <ScoreList scores={this.state.scores} />} />
             <Route path="/status" component={() => <StatusBox status={this.state.status} />} />
             <Route exact path="/" component={() => <Redirect to="/scores" />} />
@@ -89,9 +89,9 @@ const JyankenBox = (props) => {
   const style = {margin: 20}
   return (
     <div style={{marginTop: 40, marginBottom: 30, marginLeft: 30}}>
-      <RaisedButton label="グー" onClick={() => props.actionPon(0)} style={style} />
-      <RaisedButton label="チョキ" onClick={() => props.actionPon(1)} style={style} />
-      <RaisedButton label="パー" onClick={() => props.actionPon(2)} style={style} />
+      <RaisedButton id="btn-guu" label="グー" onClick={() => props.actionPon(0)} style={style} />
+      <RaisedButton id="btn-choki" label="チョキ" onClick={() => props.actionPon(1)} style={style} />
+      <RaisedButton id="btn-paa" label="パー" onClick={() => props.actionPon(2)} style={style} />
     </div>
   )
 }
@@ -121,7 +121,7 @@ ScoreList.propTypes = {
 
 const ScoreListItem = (props) => {
   const teString = ["グー", "チョキ", "パー"]
-  const judgementString = ["引きわけ", "勝ち", "負け"]
+  const judgementString = ["引き分け", "勝ち", "負け"]
   const dateHHMMSS = (d) => d.toTimeString().substr(0, 8)
   return (
     <TableRow style={judgementStyel(props.score.judgement)}>
