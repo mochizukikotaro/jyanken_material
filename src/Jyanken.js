@@ -18,6 +18,6 @@ export default class Jyanken {
   getStatuses() {
     return {draw: this.statuses[0],
             win: this.statuses[1],
-            lose: this.statuses[1]}
+            lose: this.statuses[2]}
   }
 }
