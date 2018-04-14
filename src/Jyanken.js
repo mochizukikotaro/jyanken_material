@@ -3,8 +3,7 @@ export default class Jyanken {
     this.scores = []
     this.statuses = [0, 0, 0]
   }
-  pon(human_hand) {
-    const computer_hand = Math.floor(Math.random() * 3)
+  pon(human_hand, computer_hand = Math.floor(Math.random() * 3)) {
     const judgement = (computer_hand - human_hand + 3) % 3
     this.scores.push({human: human_hand,
                       computer: computer_hand,
